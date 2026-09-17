@@ -46,7 +46,14 @@ export default defineConfig([
 
 You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
+```
+
+## Source structure
+
+- `src/App.tsx` composes the page sections.
+- `src/components/` contains reusable layout and page section components.
+- `src/data/` contains content used by components, such as inventory categories.
+- `src/App.css` contains the shared page styling and responsive layout rules.js
 // eslint.config.js
 import reactX from 'eslint-plugin-react-x'
 import reactDom from 'eslint-plugin-react-dom'
