@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { refineInquiry } from '../services/advisor'
-import { submitInquiry } from '../services/inquiries'
+import { INQUIRY_ADDRESS, submitInquiry } from '../services/inquiries'
 import { Reveal } from './Reveal'
 
 const fieldClasses =
@@ -11,15 +11,16 @@ export function InquirySection() {
   const [company, setCompany] = useState('')
   const [email, setEmail] = useState('')
   const [details, setDetails] = useState('')
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'opening' | 'handed-off' | 'error'>('idle')
+  const [mailtoHref, setMailtoHref] = useState('')
   const [refining, setRefining] = useState(false)
 
   const send = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setStatus('sending')
+    setStatus('opening')
     try {
-      await submitInquiry({ company, email, details })
-      setStatus('sent')
+      setMailtoHref(await submitInquiry({ company, email, details }))
+      setStatus('handed-off')
     } catch {
       setStatus('error')
     }
@@ -57,14 +58,26 @@ export function InquirySection() {
         </div>
 
         <div className="z-10 rounded-panel bg-white p-6 text-ink shadow-2xl sm:rounded-slab sm:p-12">
-          {status === 'sent' ? (
-            <div className="py-16 text-center">
+          {status === 'handed-off' ? (
+            <div className="py-12 text-center" aria-live="polite">
               <span className="inline-flex size-12 items-center justify-center rounded-full bg-brand-mist text-xl font-bold text-brand-green">
                 ✓
               </span>
-              <h3 className="mt-4 text-2xl font-bold">Inquiry Received.</h3>
+              <h3 className="mt-4 text-2xl font-bold">Your email is ready to send.</h3>
               <p className="mt-2 text-base text-slate-600">
-                Our warehouse team will follow up with current pricing and availability.
+                We&rsquo;ve opened your email app with this inquiry filled in. Press send and our
+                warehouse team will follow up with current pricing and availability.
+              </p>
+              <p className="mt-6 text-sm text-slate-500">
+                Nothing opened? Email{' '}
+                <a href={mailtoHref} className="font-bold text-brand-green underline">
+                  {INQUIRY_ADDRESS}
+                </a>{' '}
+                or call{' '}
+                <a href="tel:7547011797" className="font-bold text-brand-green underline">
+                  (754) 701-1797
+                </a>
+                .
               </p>
             </div>
           ) : (
@@ -107,17 +120,23 @@ export function InquirySection() {
 
               {status === 'error' ? (
                 <p role="alert" className="text-sm font-semibold text-red-600">
-                  Transmission failed. Call (754) 701-1797 and we will take the order directly.
+                  We couldn&rsquo;t open your email app. Email {INQUIRY_ADDRESS} or call
+                  (754) 701-1797 and we&rsquo;ll take the order directly.
                 </p>
               ) : null}
 
               <button
                 type="submit"
-                disabled={status === 'sending'}
+                disabled={status === 'opening'}
                 className="w-full rounded-card bg-brand-green py-5 text-lg font-bold text-white shadow-cta transition-all hover:bg-brand-green-dark disabled:opacity-50 active:scale-98"
               >
-                {status === 'sending' ? 'Connecting Warehouse…' : 'Submit Inquiry'}
+                {status === 'opening' ? 'Opening your email app…' : 'Send Inquiry by Email'}
               </button>
+
+              <p className="text-center text-xs leading-relaxed text-slate-400">
+                This opens your own email app with the inquiry filled in — you press send.
+                Prefer to talk? Call (754) 701-1797.
+              </p>
             </form>
           )}
         </div>

@@ -60,16 +60,19 @@ src/
 
 ## Backend integration
 
-`src/services/` is the only place that talks to the outside world, and both modules are
-stubs that resolve locally so the whole UI is exercisable without credentials:
+`src/services/` is the only place that talks to the outside world. The advisor functions
+are stubs that resolve locally, so the whole UI is exercisable without credentials; the
+inquiry form hands off to the visitor's mail client and needs no backend at all:
 
 - `askWoody(question)` → matches against `data/catalog.ts` and returns
   `{ summary, logistics, matches }`
 - `refineInquiry(details)` → restructures a pasted product list
-- `submitInquiry({ company, email, details })` → resolves
+- `submitInquiry({ company, email, details })` → **opens the visitor's own email client**
+  with a pre-filled message to `info@woodyspaper.com` and returns the `mailto:` URL.
+  The site stores and transmits nothing; the visitor presses send.
 
-To go live, replace each body with a `fetch` to your own endpoint, keeping the
-signatures and return shapes — no component changes required. Call any model provider
+To go live, replace the relevant body with a `fetch` to your own endpoint, keeping the
+signature and return shape — no component changes required. Call any model provider
 from that endpoint, never from the browser: a key shipped to the client is public.
 
 To load the real catalog, replace the `catalog` array in `src/data/catalog.ts` (or fetch
