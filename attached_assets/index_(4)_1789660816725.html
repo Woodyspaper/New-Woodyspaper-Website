@@ -1,0 +1,573 @@
+<!-- Version: 3.23.2026-FINAL-V49-REGION-SIMPLIFIED -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#1a2e19">
+    
+    <!-- PRIMARY SEO TAGS -->
+    <title>Woody's Paper | Wholesale Packaging & Tissue Paper South Florida</title>
+    <meta name="description" content="Meet Woody, South Florida's premier professional wholesale advisor for tissue paper and packaging. Serving South Florida.">
+    <link rel="canonical" href="https://woodyspaper.com" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; background-color: #fdfcf8; -webkit-tap-highlight-color: transparent; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .text-brand-green { color: #437a3d; }
+        .bg-brand-green { background-color: #437a3d; }
+        
+        /* Smooth Entrance Animations - Optimized for 60fps */
+        .reveal { opacity: 0; transform: translateY(15px) translateZ(0); transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform, opacity; }
+        .reveal.active { opacity: 1; transform: translateY(0) translateZ(0); }
+        .scroll-mt { scroll-margin-top: 80px; }
+        
+        .main-header { height: 70px; transition: all 0.3s ease; }
+        @media (min-width: 1024px) { .main-header { height: 90px; } .scroll-mt { scroll-margin-top: 110px; } }
+
+        .utility-bar { height: 36px; background-color: #1a2e19; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(67, 122, 61, 0.08) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+        @media (hover: hover) { .glass-card:hover::before { opacity: 1; } }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .floating-box {
+            position: absolute; opacity: 0.1; pointer-events: none;
+            z-index: 0; animation: float 12s ease-in-out infinite;
+        }
+
+        .tilt-container { perspective: 1200px; }
+        .tilt-box { transition: transform 0.1s ease-out; transform-style: preserve-3d; will-change: transform; }
+
+        .ai-glow { border: 1px solid rgba(67, 122, 61, 0.15); box-shadow: 0 0 40px rgba(67, 122, 61, 0.03); }
+
+        .ai-loading { animation: ai-pulse 1.5s infinite; }
+        @keyframes ai-pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.99); } 100% { opacity: 1; transform: scale(1); } }
+
+        .product-list::-webkit-scrollbar { width: 4px; }
+        .product-list::-webkit-scrollbar-thumb { background: #437a3d; border-radius: 10px; }
+
+        @keyframes woody-flap {
+            0%, 100% { transform: rotateX(0deg) translateZ(0); }
+            50% { transform: rotateX(40deg) translateZ(0); }
+        }
+        @keyframes woody-hover {
+            0%, 100% { transform: translateY(0) translateZ(0); }
+            50% { transform: translateY(-12px) translateZ(0); }
+        }
+        .woody-wing { animation: woody-flap 0.9s ease-in-out infinite; transform-origin: 30% 50%; }
+        .woody-container { animation: woody-hover 5s ease-in-out infinite; }
+        .mascot-bird { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    </style>
+</head>
+<body class="text-slate-800 relative">
+
+    <!-- Background Decoration -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        <div class="absolute bg-green-400/10 w-[600px] h-[600px] blur-[120px] top-[-200px] left-[-200px]"></div>
+        <div class="absolute bg-brand-green/5 w-[500px] h-[500px] blur-[100px] bottom-[-100px] right-[-100px]"></div>
+        
+        <div class="floating-box top-[10%] left-[5%] hidden lg:block" style="animation-duration: 10s;">
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#437a3d" stroke-width="0.5"><path d="M21 8l-9-4-9 4 9 4 9-4zM3 8v8l9 4 9-4V8M12 12v8"/></svg>
+        </div>
+        <div class="floating-box top-[70%] left-[80%] hidden lg:block" style="animation-duration: 8s;">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#437a3d" stroke-width="0.5"><path d="M21 8l-9-4-9 4 9 4 9-4zM3 8v8l9 4 9-4V8M12 12v8"/></svg>
+        </div>
+        <div class="floating-box top-[35%] left-[80%] hidden md:block" style="animation-duration: 14s;">
+            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#437a3d" stroke-width="0.3">
+                <rect x="4" y="8" width="12" height="14" rx="0.5" fill="rgba(67, 122, 61, 0.02)" />
+                <rect x="6" y="6" width="12" height="14" rx="0.5" fill="rgba(67, 122, 61, 0.02)" />
+                <rect x="8" y="4" width="12" height="14" rx="0.5" fill="rgba(255,255,255,0.3)" stroke-width="0.5"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Utility Bar -->
+    <div class="utility-bar fixed w-full top-0 z-[60] text-white flex items-center px-4 overflow-hidden font-sans">
+        <div class="max-w-7xl mx-auto w-full flex justify-between items-center text-[10px] sm:text-xs">
+            <div class="flex items-center gap-4 sm:gap-6">
+                <a href="tel:7547011797" class="font-bold flex items-center gap-1.5 hover:text-green-300 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                    (754) 701-1797
+                </a>
+                <a href="mailto:info@woodyspaper.com" class="flex items-center gap-1.5 hover:text-green-300 font-medium transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                    info@woodyspaper.com
+                </a>
+            </div>
+            <div class="uppercase tracking-widest hidden md:block font-bold opacity-80">Wholesale to Retail | South Florida</div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed w-full top-[36px] z-50 bg-white/95 backdrop-blur-lg border-b border-slate-200 main-header">
+        <div class="max-w-7xl mx-auto px-4 h-full flex justify-between items-center">
+            <a href="#" class="flex items-center transform active:scale-95 transition-all">
+                <img src="logo.png" alt="Woody's Paper" class="h-10 sm:h-14 w-auto object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                <span class="hidden text-brand-green font-bold text-lg italic font-sans text-center">Woody's Paper</span>
+            </a>
+            <nav class="hidden lg:flex space-x-10 items-center font-semibold text-slate-600 font-sans">
+                <a href="#products" class="hover:text-brand-green transition-colors">Products</a>
+                <a href="#ai-advisor" class="hover:text-brand-green transition-colors flex items-center gap-2 font-bold group">
+                    <svg width="24" height="24" viewBox="0 0 100 100" fill="none" class="text-brand-green group-hover:rotate-6 transition-transform">
+                        <path d="M10 55 L35 45 L65 50 L85 25 L68 52 L80 85 L50 65 L10 55 Z" fill="currentColor" fill-opacity="0.1" stroke="currentColor" stroke-width="4"/>
+                    </svg>
+                    Ask Woody
+                </a>
+                <a href="#contact" class="bg-brand-green text-white px-7 py-2.5 rounded-full hover:bg-green-800 transition-all shadow-md active:scale-95">Supply Inquiry</a>
+            </nav>
+            <button id="mobile-menu-button" class="lg:hidden p-2 text-brand-green touch-manipulation">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="hidden fixed top-[106px] w-full z-40 bg-white/98 backdrop-blur-xl border-b border-slate-200 px-6 py-10 shadow-2xl flex flex-col gap-8 text-center font-bold text-slate-700 font-sans animate-in slide-in-from-top duration-300">
+        <a href="#products" class="text-xl" onclick="toggleMenu()">Inventory Catalog</a>
+        <a href="#ai-advisor" class="text-xl flex items-center justify-center gap-2" onclick="toggleMenu()">
+            <svg width="28" height="28" viewBox="0 0 100 100" fill="none" class="text-brand-green"><path d="M15 55 L45 42 L85 52 L45 68 L15 55 Z" stroke="currentColor" stroke-width="6"/></svg>
+            Talk to Woody
+        </a>
+        <a href="#contact" class="text-xl text-brand-green" onclick="toggleMenu()">Direct Inquiry</a>
+    </div>
+
+    <main class="pt-32 relative z-10">
+        <!-- Hero Section -->
+        <section class="py-10 sm:py-24 px-4 overflow-visible">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 sm:gap-20 items-center text-center lg:text-left">
+                <div class="reveal active">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] mb-6 tracking-tight">Sustainably Sourced,<br/><span class="text-brand-green italic font-light">Responsibly</span> Delivered.</h1>
+                    <p class="text-slate-600 text-base sm:text-lg lg:text-xl mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed font-sans">Wholesale packaging and paper solutions dispatched daily across South Florida.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start px-6 sm:px-0">
+                        <a href="#contact" class="bg-brand-green text-white px-10 py-4 rounded-2xl font-bold text-lg shadow-xl hover:bg-green-800 transition-all active:scale-95 font-sans">Check Inventory</a>
+                        <a href="tel:7547011797" class="border-2 border-brand-green text-brand-green px-10 py-4 rounded-2xl font-bold text-lg hover:bg-green-50 transition-all active:scale-95 font-sans">Call Warehouse</a>
+                    </div>
+                </div>
+                <div class="reveal active tilt-container mt-8 lg:mt-0">
+                    <div id="hero-tilt" class="tilt-box relative max-w-lg mx-auto lg:max-w-none">
+                        <img src="image_ba5a41.jpg" alt="Distribution Center" class="rounded-[2rem] sm:rounded-[3rem] shadow-2xl w-full object-cover aspect-[4/3] border-[6px] border-white" onerror="this.src='https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1000'">
+                        <div class="absolute -bottom-4 -right-4 sm:-bottom-8 sm:-right-8 bg-white p-4 sm:p-7 rounded-[2rem] shadow-2xl hidden xs:block border border-slate-50">
+                            <p class="text-[10px] sm:text-xs font-black text-brand-green uppercase tracking-tighter font-sans">Warehouse Direct</p>
+                            <p class="text-lg sm:text-2xl font-bold text-slate-900 leading-none mt-1 font-sans">Optimized Fulfillment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Categories -->
+        <section id="products" class="py-12 sm:py-20 scroll-mt reveal px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-10 sm:mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-slate-900 font-sans font-bold">Inventory Hub</h2>
+                    <div class="w-12 sm:w-20 h-1.5 bg-brand-green mx-auto rounded-full"></div>
+                </div>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
+                    <div class="glass-card p-6 sm:p-10 rounded-3xl text-center">
+                        <h3 class="font-bold text-brand-green text-lg mb-2">Food services</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 font-sans">Containers & Wraps</p>
+                    </div>
+                    <div class="glass-card p-6 sm:p-10 rounded-3xl text-center">
+                        <h3 class="font-bold text-brand-green text-lg mb-2">Tissue Paper</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 font-sans">Industrial Rolls</p>
+                    </div>
+                    <div class="glass-card p-6 sm:p-10 rounded-3xl text-center">
+                        <h3 class="font-bold text-brand-green text-lg mb-2">Facility Care</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 font-sans">Hygiene Supplies</p>
+                    </div>
+                    <div class="glass-card p-6 sm:p-10 rounded-3xl text-center">
+                        <h3 class="font-bold text-brand-green text-lg mb-2">Packaging</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 font-sans">Corrugated & Wraps</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Advisor Section -->
+        <section id="ai-advisor" class="py-12 sm:py-20 scroll-mt reveal px-4">
+            <div class="max-w-6xl mx-auto glass-card p-6 sm:p-16 rounded-[2.5rem] sm:rounded-[4rem] ai-glow">
+                <div class="grid lg:grid-cols-5 gap-10 sm:gap-16">
+                    <div class="lg:col-span-2">
+                        <div class="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 sm:gap-6 mb-8 woody-container">
+                            <!-- MAJESTIC WOODY - BALD EAGLE PAPER ORIGAMI V37 -->
+                            <div class="w-28 h-28 bg-brand-green/10 flex items-center justify-center rounded-[2rem] mascot-bird relative shrink-0 overflow-visible">
+                                <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 55 L38 62 L18 85 L28 65 L35 85 L42 66 L12 55 Z" fill="#ffffff" fill-opacity="0.95" stroke="#e5e7eb" stroke-width="0.5"/>
+                                    <path d="M12 55 C25 45, 45 45, 52 48 L72 54 C68 62, 55 75, 42 72 L12 55 Z" fill="#437a3d" fill-opacity="1"/>
+                                    <path d="M45 46 L92 18 L75 42 L88 52 L70 54 Z" fill="#437a3d" class="woody-wing"/>
+                                    <path d="M45 46 L82 88 L65 72 L55 86 L68 54 Z" fill="#2d5229" fill-opacity="0.75" class="woody-wing" style="animation-delay: 0.1s;"/>
+                                    <path d="M62 50 C65 40, 80 40, 85 50 L75 58 L65 54 L62 50 Z" fill="#ffffff" fill-opacity="1"/>
+                                    <path d="M85 50 L96 54 L88 58 L85 50 Z" fill="#facc15"/>
+                                    <circle cx="75" cy="51" r="1.3" fill="#1a2e19"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">"Woody" <br class="hidden sm:block"><span class="text-brand-green">the Advisor</span></h2>
+                                <p class="text-xs uppercase font-black tracking-widest text-slate-400 mt-2 font-sans">Inventory Expert</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 mb-4 text-sm sm:text-base leading-relaxed font-sans">Describe your specific needs. Woody will cross-reference wholesale SKUs in our warehouse to suggest the perfect match.</p>
+                        <p class="text-[10px] text-slate-400 italic mb-8 border-l-2 border-slate-100 pl-4 font-sans leading-tight">Professional Disclosure: Catalog reference provided for estimation. Confirm live stock availability and final wholesale pricing via inquiry.</p>
+                        <div class="space-y-4">
+                            <textarea id="aiInput" rows="3" placeholder="Consult Woody on technical stock requirements..." class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-brand-green focus:border-transparent outline-none transition-all text-sm font-sans resize-none"></textarea>
+                            <button id="aiBtn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold hover:bg-black transition-all active:scale-[0.98] flex items-center justify-center gap-2 font-sans shadow-lg">
+                                <span>Talk to Woody</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-3">
+                        <div id="aiResultPlaceholder" class="h-full min-h-[300px] flex flex-col items-center justify-center border-2 border-dashed border-slate-100 rounded-[2.5rem] p-8 text-center text-slate-400 italic text-sm font-sans">
+                            Woody's matches will appear here.
+                        </div>
+                        <div id="aiResult" class="hidden h-full flex flex-col gap-6">
+                            <div class="bg-green-50/50 p-6 sm:p-8 rounded-[2.5rem] border border-green-100/50">
+                                <div class="flex justify-between items-center mb-5">
+                                    <h4 class="font-bold text-brand-green text-xs uppercase font-sans tracking-widest">Inventory Match Index</h4>
+                                    <span class="text-[10px] bg-white/80 px-3 py-1.5 rounded-full text-slate-400 font-black uppercase tracking-tighter font-sans border border-slate-100">Estimated Market Quote</span>
+                                </div>
+                                <div id="aiProductText" class="text-slate-800 text-sm sm:text-base mb-6 italic leading-relaxed font-sans"></div>
+                                <div id="matchingProducts" class="grid gap-4 product-list max-h-[400px] overflow-y-auto pr-3">
+                                    <!-- Dynamic content -->
+                                </div>
+                            </div>
+                            <div class="bg-blue-50/50 p-6 sm:p-8 rounded-[2.5rem] border border-blue-100/50">
+                                <h4 class="font-bold text-blue-600 text-xs uppercase font-sans tracking-widest mb-3">Woody's Logistics Insight</h4>
+                                <div id="aiLogisticsText" class="text-slate-800 text-sm sm:text-base leading-relaxed font-sans"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-12 sm:py-24 px-4 scroll-mt reveal">
+            <div class="max-w-6xl mx-auto bg-brand-green rounded-[3rem] sm:rounded-[5rem] p-8 sm:p-20 text-white grid lg:grid-cols-2 gap-12 sm:gap-24 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2"></div>
+                <div class="text-center lg:text-left z-10">
+                    <h2 class="text-4xl sm:text-6xl font-bold mb-8 italic leading-tight font-sans font-bold">Supply Inquiry.</h2>
+                    <p class="text-green-50 text-lg sm:text-xl opacity-90 mb-12 leading-relaxed font-sans max-w-md mx-auto lg:mx-0">Get verified wholesale pricing and local delivery schedules from our team.</p>
+                    <a href="tel:7547011797" class="text-3xl sm:text-4xl font-bold hover:text-green-200 transition-colors block mb-4 font-sans tracking-tight">(754) 701-1797</a>
+                    <p class="text-green-100/60 text-sm font-black tracking-[0.2em] uppercase font-sans">South Florida Warehouse Hub</p>
+                </div>
+                <div class="bg-white p-6 sm:p-12 rounded-[2.5rem] sm:rounded-[3.5rem] text-slate-800 z-10 shadow-2xl">
+                    <form id="quoteForm" class="space-y-5 font-sans">
+                        <input type="text" id="businessName" required placeholder="Business Name" class="w-full px-6 py-5 rounded-2xl bg-slate-50 border-0 outline-none focus:ring-2 focus:ring-brand-green transition-all placeholder-slate-400">
+                        <input type="email" id="businessEmail" required placeholder="Contact Email" class="w-full px-6 py-5 rounded-2xl bg-slate-50 border-0 outline-none focus:ring-2 focus:ring-brand-green transition-all placeholder-slate-400">
+                        <div class="relative">
+                            <textarea id="inquiryDetails" placeholder="Type or paste your product list here..." class="w-full px-6 py-5 rounded-2xl bg-slate-50 border-0 outline-none focus:ring-2 focus:ring-brand-green h-40 resize-none placeholder-slate-400"></textarea>
+                            <button type="button" id="refineBtn" class="absolute bottom-4 right-4 bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-xl text-xs font-black shadow-sm hover:border-brand-green hover:text-brand-green transition-all active:scale-95 font-sans">✨ AI Refine</button>
+                        </div>
+                        <button type="submit" id="submitBtn" class="w-full bg-brand-green text-white py-5 rounded-2xl font-bold text-lg shadow-xl hover:bg-green-800 transition-all disabled:opacity-50 active:scale-[0.98] font-sans">Connecting Warehouse...</button>
+                    </form>
+                    <div id="formSuccess" class="hidden text-center py-16 font-bold text-brand-green font-sans text-xl">
+                        Inquiry Received.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0a110a] text-white pt-24 pb-12 relative z-10 text-center sm:text-left">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-16 mb-20">
+                <div class="space-y-8">
+                    <div class="bg-white rounded-2xl p-2 inline-block shadow-lg">
+                        <img src="logo.png" alt="Woody's Paper" class="h-14 w-auto object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <span class="hidden text-lg font-bold text-slate-900 uppercase font-sans">Woody's Paper</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed text-sm font-sans max-w-xs mx-auto sm:mx-0">South Florida's trusted wholesale supply partner for high-volume packaging and tissue products.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-6 text-white uppercase text-xs tracking-widest font-sans">Area Serviced</h4>
+                    <p class="text-slate-400 text-sm font-sans leading-loose">Serving South Florida</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-6 text-white uppercase text-xs tracking-widest font-sans font-bold">Contact</h4>
+                    <p class="text-slate-400 text-sm font-medium font-sans mb-2">(754) 701-1797</p>
+                    <p class="text-slate-400 text-sm font-medium font-sans">info@woodyspaper.com</p>
+                </div>
+            </div>
+            <div class="pt-10 border-t border-white/10 text-slate-600 text-[10px] flex flex-col sm:flex-row justify-between items-center gap-6 uppercase font-bold tracking-[0.3em] font-sans">
+                <p><span id="secretTrigger" class="cursor-pointer hover:text-white transition-colors">©</span> 2026 Woody's Paper</p>
+                <p class="text-brand-green/40 italic font-medium tracking-tight">Supply Chain Optimization v49</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ADMIN -->
+    <section id="adminPanel" class="hidden fixed inset-0 z-[100] bg-slate-900 text-white p-8 overflow-y-auto font-sans">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex justify-between items-center mb-10">
+                <h3 class="text-3xl font-bold font-sans">Leads Dashboard</h3>
+                <button id="logoutBtn" class="bg-white/10 px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest active:scale-95 transition-all font-sans">Close</button>
+            </div>
+            <div class="bg-white/5 rounded-3xl overflow-x-auto border border-white/10">
+                <table class="w-full text-left">
+                    <thead><tr class="border-b border-white/10 text-[10px] text-slate-500 uppercase font-black tracking-widest font-sans font-sans font-sans font-sans font-sans font-sans font-sans font-sans font-sans font-sans font-sans font-sans font-sans"><th class="p-6">Date</th><th class="p-6">Company</th><th class="p-6">Email</th></tr></thead>
+                    <tbody id="inquiryList" class="text-sm"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- External Assets -->
+    <script src="products.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const apiKey = ""; 
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'woodys-paper-v42';
+        const firebaseConfigStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db, auth;
+        let isAuthReady = false;
+
+        // 1. DATABASE INIT & RESILIENCE
+        if (firebaseConfigStr) {
+            try {
+                const firebaseConfig = JSON.parse(firebaseConfigStr);
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                const initAuth = async () => {
+                    let retryCount = 0;
+                    while (retryCount < 3) {
+                        try {
+                            if (initialAuthToken) await signInWithCustomToken(auth, initialAuthToken);
+                            else await signInAnonymously(auth);
+                            break;
+                        } catch (err) {
+                            retryCount++;
+                            await new Promise(r => setTimeout(r, 1000 * retryCount));
+                        }
+                    }
+                };
+
+                onAuthStateChanged(auth, (user) => {
+                    const subBtn = document.getElementById('submitBtn');
+                    if (user) {
+                        isAuthReady = true;
+                        if (subBtn) { 
+                            subBtn.disabled = false; 
+                            subBtn.innerText = "Submit Inquiry";
+                            subBtn.classList.add('bg-brand-green');
+                        }
+                        
+                        const inquiriesRef = collection(db, 'artifacts', appId, 'public', 'data', 'inquiries');
+                        onSnapshot(inquiriesRef, (snapshot) => {
+                            const list = document.getElementById('inquiryList');
+                            if (!list) return;
+                            list.innerHTML = '';
+                            const docs = snapshot.docs.sort((a, b) => (b.data().timestamp?.seconds || 0) - (a.data().timestamp?.seconds || 0));
+                            docs.forEach(doc => {
+                                const d = doc.data();
+                                const date = d.timestamp ? new Date(d.timestamp.seconds * 1000).toLocaleDateString() : 'Pending';
+                                list.innerHTML += `<tr class="border-b border-white/5 hover:bg-white/5 transition-colors font-sans"><td class="p-6 text-slate-500">${date}</td><td class="p-6 font-bold text-white">${d.company || 'Unknown'}</td><td class="p-6 text-slate-400">${d.email || 'N/A'}</td></tr>`;
+                            });
+                        });
+                    } else {
+                        isAuthReady = false;
+                        if (subBtn) {
+                            subBtn.disabled = true;
+                            subBtn.innerText = "Connecting Warehouse...";
+                        }
+                    }
+                });
+                initAuth();
+
+                document.getElementById('quoteForm')?.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    if (!isAuthReady) return;
+                    const btn = document.getElementById('submitBtn');
+                    btn.disabled = true; btn.innerText = "Transmitting...";
+                    
+                    try {
+                        const inquiriesRef = collection(db, 'artifacts', appId, 'public', 'data', 'inquiries');
+                        await addDoc(inquiriesRef, {
+                            company: document.getElementById('businessName').value,
+                            email: document.getElementById('businessEmail').value,
+                            details: document.getElementById('inquiryDetails').value,
+                            timestamp: serverTimestamp()
+                        });
+                        document.getElementById('quoteForm').classList.add('hidden');
+                        document.getElementById('formSuccess').classList.remove('hidden');
+                    } catch (err) { 
+                        btn.disabled = false; 
+                        btn.innerText = "Retry Transmission";
+                    }
+                });
+            } catch (fatal) {
+                const subBtn = document.getElementById('submitBtn');
+                if (subBtn) subBtn.innerText = "Call (754) 701-1797";
+            }
+        }
+
+        // 2. AI LOGIC
+        async function geminiCall(prompt, systemMsg) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = { contents: [{ parts: [{ text: prompt }] }], systemInstruction: { parts: [{ text: systemMsg }] } };
+            
+            let delay = 1000;
+            for (let i = 0; i < 5; i++) {
+                try {
+                    const response = await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+                    if (!response.ok) throw new Error();
+                    const result = await response.json();
+                    return result.candidates?.[0]?.content?.parts?.[0]?.text;
+                } catch (e) { 
+                    if (i === 4) throw e; 
+                    await new Promise(r => setTimeout(r, delay)); 
+                    delay *= 2; 
+                }
+            }
+        }
+
+        document.getElementById('aiBtn')?.addEventListener('click', async () => {
+            const btn = document.getElementById('aiBtn');
+            const resultDiv = document.getElementById('aiResult');
+            const placeholder = document.getElementById('aiResultPlaceholder');
+            const productText = document.getElementById('aiProductText');
+            const logisticsText = document.getElementById('aiLogisticsText');
+            const listDiv = document.getElementById('matchingProducts');
+            const input = document.getElementById('aiInput').value;
+            
+            if (!input.trim()) return;
+            btn.disabled = true; btn.classList.add('ai-loading');
+            listDiv.innerHTML = '';
+            
+            try {
+                const systemMsg = `You are Woody, the professional Inventory Advisor for Woody's Paper & Supply. Persona: High-level wholesale specialist.
+                STRICTLY follow these rules:
+                1. Tone: Formal, industry-standard, logistical focus.
+                2. Disclaimer: Remind users listings and prices are subject to confirmation.
+                3. Advice: Offer technical insights on South Florida storage.
+                4. Output JSON: { "searchKeywords": "string", "advice": "string", "summary": "string" }`;
+                
+                const response = await geminiCall(input, systemMsg);
+                const data = JSON.parse(response.replace(/```json|```/g, '').trim());
+                
+                const kwArr = String(data.searchKeywords || "").toLowerCase().split(' ').filter(k => k.length > 2);
+                const catalog = (window.PRODUCT_CATALOG || []).slice(0, 1562); 
+                
+                const matches = catalog.filter(item => {
+                    const d = item.d.toLowerCase();
+                    const c = item.c.toLowerCase();
+                    if (c.includes('INTERNAL') || c.includes('FEES')) return false;
+                    return kwArr.some(k => d.includes(k));
+                }).slice(0, 10);
+
+                placeholder.classList.add('hidden');
+                resultDiv.classList.remove('hidden');
+                productText.innerText = data.summary;
+                logisticsText.innerText = data.advice;
+
+                if (matches.length > 0) {
+                    matches.forEach(m => {
+                        const el = document.createElement('div');
+                        el.className = 'bg-white p-4 rounded-2xl border border-green-100 text-[11px] sm:text-xs flex justify-between items-center group hover:border-brand-green transition-all shadow-sm font-sans';
+                        el.innerHTML = `<div><span class="block font-black text-brand-green opacity-40 uppercase mb-0.5 font-sans font-sans font-sans font-sans font-sans font-sans">${m.id}</span><span class="font-bold text-slate-800 font-sans font-sans">${m.d}</span></div><div class="text-right ml-6 shrink-0"><span class="block font-bold text-brand-green font-sans font-sans font-sans">$${Number(m.p).toFixed(2)}</span><span class="text-[9px] text-slate-400 font-bold uppercase font-sans font-sans font-sans">${m.s}</span></div>`;
+                        listDiv.appendChild(el);
+                    });
+                } else {
+                    listDiv.innerHTML = '<p class="text-xs text-slate-400 italic p-6 text-center font-sans font-sans font-sans font-sans">No direct SKU match found. Please submit a professional inquiry for custom sourcing.</p>';
+                }
+            } catch (err) { 
+                productText.innerText = "Consultation service operating in manual mode. Please submit an inquiry.";
+            } finally { 
+                btn.disabled = false; btn.classList.remove('ai-loading'); 
+            }
+        });
+
+        document.getElementById('refineBtn')?.addEventListener('click', async () => {
+            const refineBtn = document.getElementById('refineBtn');
+            const detailsArea = document.getElementById('inquiryDetails');
+            if (!detailsArea.value.trim()) return;
+            refineBtn.disabled = true; refineBtn.innerText = "✨...";
+            try {
+                const refined = await geminiCall(detailsArea.value, "Professional Assistant: Rewrite this request into a formal wholesale inquiry for Woody's Paper. Keep it structured and clear.");
+                detailsArea.value = refined;
+            } finally { refineBtn.disabled = false; refineBtn.innerText = "✨ AI Refine"; }
+        });
+
+        // 3. INTERACTIVE EFFECTS (Optimized)
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (!isMobile) {
+            const tiltBox = document.getElementById('hero-tilt');
+            document.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.pageX) / 140;
+                const y = (window.innerHeight / 2 - e.pageY) / 140;
+                if (tiltBox) tiltBox.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+            }, { passive: true });
+        }
+
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mouse-x', `${((e.clientX - rect.left) / rect.width) * 100}%`);
+                card.style.setProperty('--mouse-y', `${((e.clientY - rect.top) / rect.height) * 100}%`);
+            }, { passive: true });
+        });
+
+        window.toggleMenu = () => document.getElementById('mobile-menu').classList.toggle('hidden');
+        document.getElementById('mobile-menu-button')?.addEventListener('click', toggleMenu);
+
+        document.getElementById('secretTrigger')?.addEventListener('click', () => {
+            window.clickCount = (window.clickCount || 0) + 1;
+            if (window.clickCount >= 3) {
+                const code = prompt("Internal Entry Code:");
+                if (code === "Woody4600") document.getElementById('adminPanel').classList.remove('hidden');
+                window.clickCount = 0;
+            }
+        });
+        document.getElementById('logoutBtn')?.addEventListener('click', () => document.getElementById('adminPanel').classList.add('hidden'));
+
+        function reveal() {
+            const r = document.querySelectorAll(".reveal");
+            r.forEach(box => {
+                if (box.getBoundingClientRect().top < window.innerHeight * 0.9) box.classList.add("active");
+            });
+        }
+        window.addEventListener("scroll", reveal, { passive: true }); reveal();
+    </script>
+</body>
+</html>
