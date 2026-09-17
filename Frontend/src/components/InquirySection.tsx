@@ -1,77 +1,127 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
+import { refineInquiry } from '../services/advisor'
+import { submitInquiry } from '../services/inquiries'
+import { Reveal } from './Reveal'
+
+const fieldClasses =
+  'w-full rounded-card border-0 bg-slate-50 px-6 py-5 text-ink outline-none transition-all placeholder:text-slate-400 focus:ring-2 focus:ring-brand-green'
 
 export function InquirySection() {
-  const [sent, setSent] = useState(false)
+  const [company, setCompany] = useState('')
+  const [email, setEmail] = useState('')
+  const [details, setDetails] = useState('')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [refining, setRefining] = useState(false)
 
-  const submitInquiry = (event: FormEvent<HTMLFormElement>) => {
+  const send = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setSent(true)
+    setStatus('sending')
+    try {
+      await submitInquiry({ company, email, details })
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  const refine = async () => {
+    if (!details.trim() || refining) return
+    setRefining(true)
+    try {
+      setDetails(await refineInquiry(details))
+    } finally {
+      setRefining(false)
+    }
   }
 
   return (
-    <section className="bg-[#f5f8f3] py-[76px]" id="contact">
-      <div className="mx-auto grid max-w-[1280px] gap-[84px] rounded-[70px] bg-[#437a3d] px-6 py-[72px] text-white shadow-[0_24px_45px_rgba(41,82,38,0.2)] lg:grid-cols-2 lg:items-center">
-        <div>
-          <h2 className="mb-[27px] text-[clamp(2.5rem,4vw,3.6rem)] font-bold italic tracking-[-0.04em] text-white">
-            Supply Inquiry.
-          </h2>
-          <p className="max-w-[360px] text-[19px] text-white/90">
+    <Reveal as="section" id="contact" className="scroll-mt-chrome px-4 py-12 sm:py-24 lg:scroll-mt-chrome-lg">
+      <div className="relative mx-auto grid max-w-6xl gap-12 overflow-hidden rounded-slab bg-brand-green p-8 text-white shadow-panel sm:gap-24 sm:rounded-slab-lg sm:p-20 lg:grid-cols-2">
+        <div className="absolute right-0 top-0 size-64 -translate-y-1/2 translate-x-1/2 rounded-full bg-white/5 blur-3xl" aria-hidden="true" />
+
+        <div className="z-10 text-center lg:text-left">
+          <h2 className="mb-8 text-4xl font-bold italic leading-tight sm:text-6xl">Supply Inquiry.</h2>
+          <p className="mx-auto mb-12 max-w-md text-lg leading-relaxed text-green-50/90 sm:text-xl lg:mx-0">
             Get verified wholesale pricing and local delivery schedules from our team.
           </p>
-          <a className="mt-[30px] block text-[34px] font-bold text-white no-underline tracking-[-0.04em]" href="tel:7547011797">
+          <a
+            href="tel:7547011797"
+            className="mb-4 block text-3xl font-bold tracking-tight transition-colors hover:text-brand-leaf sm:text-4xl"
+          >
             (754) 701-1797
           </a>
-          <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#dcfce7]/70">
+          <p className="text-sm font-black uppercase tracking-ultra text-green-100/60">
             South Florida Warehouse Hub
-          </span>
+          </p>
         </div>
 
-        <div className="rounded-[48px] bg-white/5 p-[43px] shadow-[0_22px_40px_rgba(20,47,23,0.25)]">
-          {sent ? (
-            <div className="rounded-[32px] bg-white p-8 text-[#172235] shadow-[0_12px_25px_rgba(0,0,0,0.08)]">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#eaf7eb] text-xl font-bold text-[#3f803d]">✓</span>
-              <h3 className="mt-4 text-2xl font-bold text-[#172235]">Inquiry Received.</h3>
+        <div className="z-10 rounded-panel bg-white p-6 text-ink shadow-2xl sm:rounded-slab sm:p-12">
+          {status === 'sent' ? (
+            <div className="py-16 text-center">
+              <span className="inline-flex size-12 items-center justify-center rounded-full bg-brand-mist text-xl font-bold text-brand-green">
+                ✓
+              </span>
+              <h3 className="mt-4 text-2xl font-bold">Inquiry Received.</h3>
               <p className="mt-2 text-base text-slate-600">
                 Our warehouse team will follow up with current pricing and availability.
               </p>
             </div>
           ) : (
-            <form className="space-y-4" onSubmit={submitInquiry}>
+            <form onSubmit={send} className="space-y-5">
               <input
                 required
                 aria-label="Business name"
                 placeholder="Business Name"
-                className="w-full rounded-[16px] border-0 bg-[#f7f9fa] px-[20px] py-[18px] text-[#172235] outline-none"
+                value={company}
+                onChange={(event) => setCompany(event.target.value)}
+                className={fieldClasses}
               />
               <input
                 required
-                aria-label="Contact email"
                 type="email"
+                aria-label="Contact email"
                 placeholder="Contact Email"
-                className="w-full rounded-[16px] border-0 bg-[#f7f9fa] px-[20px] py-[18px] text-[#172235] outline-none"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                className={fieldClasses}
               />
               <div className="relative">
                 <textarea
                   required
                   aria-label="Product list"
                   placeholder="Type or paste your product list here..."
-                  className="min-h-[150px] w-full resize-none rounded-[16px] border-0 bg-[#f7f9fa] px-[20px] py-[18px] text-[#172235] outline-none"
+                  value={details}
+                  onChange={(event) => setDetails(event.target.value)}
+                  className={`${fieldClasses} h-40 resize-none pb-16`}
                 />
                 <button
                   type="button"
-                  className="absolute bottom-[31px] right-[14px] rounded-[10px] border border-slate-200 bg-white px-3 py-2 text-[11px] font-bold text-slate-500"
+                  onClick={refine}
+                  disabled={refining || !details.trim()}
+                  className="absolute bottom-4 right-4 rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-black text-slate-600 shadow-sm transition-all hover:border-brand-green hover:text-brand-green disabled:opacity-50 active:scale-95"
                 >
-                  ✨ AI Refine
+                  {refining ? '✨ Refining…' : '✨ AI Refine'}
                 </button>
               </div>
-              <button className="inline-flex w-full items-center justify-center rounded-[13px] bg-[#40813e] px-[26px] py-[18px] text-[17px] font-bold text-white shadow-[0_12px_20px_rgba(39,83,37,0.18)] transition hover:-translate-y-0.5" type="submit">
-                Connecting Warehouse...
+
+              {status === 'error' ? (
+                <p role="alert" className="text-sm font-semibold text-red-600">
+                  Transmission failed. Call (754) 701-1797 and we will take the order directly.
+                </p>
+              ) : null}
+
+              <button
+                type="submit"
+                disabled={status === 'sending'}
+                className="w-full rounded-card bg-brand-green py-5 text-lg font-bold text-white shadow-cta transition-all hover:bg-brand-green-dark disabled:opacity-50 active:scale-98"
+              >
+                {status === 'sending' ? 'Connecting Warehouse…' : 'Submit Inquiry'}
               </button>
             </form>
           )}
         </div>
       </div>
-    </section>
+    </Reveal>
   )
 }

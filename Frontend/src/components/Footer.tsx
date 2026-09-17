@@ -2,32 +2,39 @@ import { Logo } from './Logo'
 
 export function Footer() {
   return (
-    <footer className="bg-[#0a110a] pt-[78px]">
-      <div className="mx-auto grid max-w-[1280px] gap-[80px] px-6 pb-[65px] md:grid-cols-[1.2fr_0.8fr_0.8fr]">
-        <div>
-          <div className="w-fit rounded-[14px] bg-white p-[7px]">
-            <Logo />
+    <footer className="relative z-10 bg-brand-night pb-12 pt-24 text-center text-white sm:text-left">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="mb-20 grid gap-16 md:grid-cols-3">
+          <div className="space-y-8">
+            <div className="inline-block rounded-card bg-white p-3 shadow-lg">
+              <Logo />
+            </div>
+            <p className="mx-auto max-w-xs text-sm leading-relaxed text-slate-400 sm:mx-0">
+              South Florida&rsquo;s trusted wholesale supply partner for high-volume packaging and
+              tissue products.
+            </p>
           </div>
-          <p className="mt-[27px] max-w-[315px] text-[13px] leading-[1.9] text-[#88938c]">
-            South Florida's trusted wholesale supply partner for high-volume packaging and tissue products.
-          </p>
+
+          <div>
+            <h3 className="mb-6 text-xs font-bold uppercase tracking-ultra">Area Serviced</h3>
+            <p className="text-sm leading-loose text-slate-400">Serving South Florida</p>
+          </div>
+
+          <div>
+            <h3 className="mb-6 text-xs font-bold uppercase tracking-ultra">Contact</h3>
+            <a href="tel:7547011797" className="mb-2 block text-sm font-medium text-slate-400 transition-colors hover:text-white">
+              (754) 701-1797
+            </a>
+            <a href="mailto:info@woodyspaper.com" className="block text-sm font-medium text-slate-400 transition-colors hover:text-white">
+              info@woodyspaper.com
+            </a>
+          </div>
         </div>
 
-        <div>
-          <h4 className="mb-[25px] text-[11px] font-bold uppercase tracking-[0.13em] text-white">Area Serviced</h4>
-          <p className="text-[13px] leading-[1.9] text-[#88938c]">Serving South Florida</p>
+        <div className="flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-10 text-3xs font-bold uppercase tracking-mega text-slate-600 sm:flex-row">
+          <p>&copy; {new Date().getFullYear()} Woody&rsquo;s Paper</p>
+          <p className="italic tracking-tight text-brand-green/40">Supply Chain Optimization</p>
         </div>
-
-        <div>
-          <h4 className="mb-[25px] text-[11px] font-bold uppercase tracking-[0.13em] text-white">Contact</h4>
-          <a className="block text-[13px] leading-[1.9] text-[#88938c] no-underline" href="tel:7547011797">(754) 701-1797</a>
-          <a className="block text-[13px] leading-[1.9] text-[#88938c] no-underline" href="mailto:info@woodyspaper.com">info@woodyspaper.com</a>
-        </div>
-      </div>
-
-      <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-4 px-6 pb-[10px] pt-[28px] text-[11px] uppercase tracking-[0.25em] text-[#465149]">
-        <span>© 2026 Woody's Paper</span>
-        <span className="italic tracking-0 text-[rgba(67,122,61,0.5)]">Supply Chain Optimization v49</span>
       </div>
     </footer>
   )

@@ -1,32 +1,33 @@
 import { inventory } from '../data/inventory'
+import { GlassCard } from './GlassCard'
+import { Reveal } from './Reveal'
 
 export function InventorySection() {
   return (
-    <section className="bg-[#fdfcf9] py-[76px]" id="products">
-      <div className="mx-auto max-w-[1280px] px-6">
-        <div className="mb-[61px] text-center">
-          <h2 className="m-0 text-[38px] font-bold leading-none text-[#101a2b]">Inventory Hub</h2>
-          <i className="mx-auto mt-[17px] block h-[5px] w-[80px] rounded-[4px] bg-[#438341]" />
+    <Reveal as="section" id="products" className="scroll-mt-chrome px-4 py-12 sm:py-20 lg:scroll-mt-chrome-lg">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-10 text-center sm:mb-16">
+          <h2 className="mb-4 text-3xl font-bold text-slate-900 sm:text-4xl">Inventory Hub</h2>
+          <div className="mx-auto h-1.5 w-12 rounded-full bg-brand-green sm:w-20" />
         </div>
 
-        <div className="grid gap-7 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-4">
           {inventory.map((item) => (
-            <article
-              className="group min-h-[245px] rounded-[24px] border border-[#f0f1f3] bg-white p-[32px_22px_24px] text-center shadow-[0_14px_30px_rgba(35,50,45,0.06)] transition duration-200 hover:-translate-y-1.5 hover:shadow-[0_20px_38px_rgba(35,50,45,0.11)]"
+            <GlassCard
               key={item.title}
+              className="rounded-panel p-6 text-center transition-transform duration-200 hover:-translate-y-1.5 sm:p-10"
             >
-              <div className="mx-auto mb-[21px] grid h-[58px] w-[58px] place-items-center rounded-[16px] bg-[#eef7ee] text-[30px] text-[#438341]">
-                ▣
+              <div className="mx-auto mb-5 grid size-14 place-items-center rounded-card bg-brand-mist text-brand-green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-7" aria-hidden="true">
+                  <path d="M21 8l-9-4-9 4 9 4 9-4zM3 8v8l9 4 9-4V8M12 12v8" strokeLinejoin="round" />
+                </svg>
               </div>
-              <h3 className="mb-[8px] text-[19px] font-bold text-[#3f803d]">{item.title}</h3>
-              <p className="mb-[28px] text-[14px] text-[#617089]">{item.subtitle}</p>
-              <b className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#6b778a]">
-                Current Stock <span className="pl-[7px] text-[#438341]">→</span>
-              </b>
-            </article>
+              <h3 className="mb-2 text-lg font-bold text-brand-green">{item.title}</h3>
+              <p className="text-xs text-slate-500 sm:text-sm">{item.subtitle}</p>
+            </GlassCard>
           ))}
         </div>
       </div>
-    </section>
+    </Reveal>
   )
 }

@@ -1,82 +1,77 @@
-# React + TypeScript + Vite
+# Woody's Paper — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 19 + TypeScript + Vite. Styling is **Tailwind CSS v4** (via `@tailwindcss/vite`);
+plain CSS is used only where Tailwind has no primitive.
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev      # http://0.0.0.0:5000
+npm run build    # tsc -b && vite build
+npm run lint
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Styling conventions
+
+All design decisions live as tokens in the `@theme` block of `src/index.css`, and are
+consumed as ordinary utilities in components.
+
+| Token group   | Examples                                                             | Utilities produced                         |
+| ------------- | -------------------------------------------------------------------- | ------------------------------------------ |
+| Colour        | `--color-brand-green`, `--color-brand-deep`, `--color-ink`             | `bg-brand-green`, `text-ink`, `border-brand-deep` |
+| Type          | `--font-display`, `--text-2xs` … `--text-5xs`, `--tracking-ultra`      | `font-display`, `text-3xs`, `tracking-ultra` |
+| Chrome sizing | `--spacing-utility`, `--spacing-header`, `--spacing-chrome`            | `h-header`, `top-utility`, `pt-chrome`, `scroll-mt-chrome` |
+| Radii         | `--radius-card`, `--radius-panel`, `--radius-slab`, `--radius-slab-lg` | `rounded-panel`, `rounded-slab-lg`          |
+| Shadow        | `--shadow-glass`, `--shadow-cta`, `--shadow-panel`, `--shadow-ai-glow` | `shadow-cta`, `shadow-panel`                |
+| Motion        | `--animate-float`, `--animate-wing`, `--animate-bob`, `--ease-brand`   | `animate-float`, `ease-brand`               |
+
+**Rules of thumb**
+
+1. Reach for an existing utility first.
+2. Need a new colour, size, radius, shadow or animation? Add a token to `@theme` —
+   don't write `bg-[#437a3d]` or `text-[11px]` in a component.
+3. Repeating the same cluster of classes? Extract a component
+   (`GlassCard`, `Reveal`, `WoodyMark`), not a CSS class.
+4. Write raw CSS only for things utilities genuinely can't express. Today that is four
+   `@utility` blocks in `src/index.css`:
+   - `glass-glow` — cursor-tracking highlight (paints a pseudo-element from
+     `--mouse-x` / `--mouse-y` set by `useGlassGlow`)
+   - `scrollbar-brand` — `::-webkit-scrollbar` styling for the match list
+   - `tilt-stage` / `tilt-target` — `perspective` + `transform-style: preserve-3d`
+   - `woody-wing` — mascot wing animation, which needs a specific `transform-origin`
+
+   …plus a small `@layer base` block for document-level defaults and a
+   `prefers-reduced-motion` escape hatch.
+
+Positional one-offs that are data rather than design (the drifting background boxes)
+use inline `style`, not arbitrary classes.
+
+## Structure
 
 ```
-
-## Source structure
-
-- `src/App.tsx` composes the page sections.
-- `src/components/` contains reusable layout and page section components.
-- `src/data/` contains content used by components, such as inventory categories.
-- `src/App.css` contains the shared page styling and responsive layout rules.js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+src/
+  components/   UI, one file per section + shared primitives
+  hooks/        useReveal, useTilt, useGlassGlow
+  services/     advisor.ts, inquiries.ts  ← network boundary (currently stubbed)
+  data/         inventory.ts (categories), catalog.ts (SKUs + search)
+  index.css     Tailwind import, @theme tokens, base layer, @utility blocks
 ```
+
+## Backend integration
+
+`src/services/` is the only place that talks to the outside world, and both modules are
+stubs that resolve locally so the whole UI is exercisable without credentials:
+
+- `askWoody(question)` → matches against `data/catalog.ts` and returns
+  `{ summary, logistics, matches }`
+- `refineInquiry(details)` → restructures a pasted product list
+- `submitInquiry({ company, email, details })` → resolves
+
+To go live, replace each body with a `fetch` to your own endpoint, keeping the
+signatures and return shapes — no component changes required. Call any model provider
+from that endpoint, never from the browser: a key shipped to the client is public.
+
+To load the real catalog, replace the `catalog` array in `src/data/catalog.ts` (or fetch
+it and pass the result to `findMatches`); the `CatalogItem` shape mirrors the production
+export.

@@ -1,37 +1,58 @@
-export function HeroSection() {
-  return (
-    <section className="relative min-h-[665px] overflow-hidden bg-[radial-gradient(circle_at_7%_28%,#e9f8eb_0,rgba(233,248,235,0.72)_16%,transparent_39%),#fdfcf9]">
-      <div className="pointer-events-none absolute left-[5%] top-[-10px] rotate-[30deg] text-[82px] text-[#acd2ae]/20">◇</div>
-      <div className="pointer-events-none absolute bottom-[20px] right-[7%] rotate-[-20deg] text-[82px] text-[#acd2ae]/20">◇</div>
+import { useTilt } from '../hooks/useTilt'
 
-      <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-[92px] px-6 py-[100px] md:grid-cols-2 md:items-center">
-        <div className="pl-[2px] animate-[enter_0.7s_ease_both]">
-          <h1 className="mb-[23px] text-[clamp(3rem,4.4vw,4rem)] font-bold leading-[0.92] tracking-[-0.045em] text-[#172235]">
+const FALLBACK_IMAGE =
+  'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1000'
+
+export function HeroSection() {
+  const tiltRef = useTilt<HTMLDivElement>()
+
+  return (
+    <section className="px-4 py-10 sm:py-24">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 text-center sm:gap-20 lg:grid-cols-2 lg:text-left">
+        <div>
+          <h1 className="mb-6 text-4xl font-bold leading-hero tracking-tight sm:text-5xl lg:text-6xl">
             Sustainably Sourced,
             <br />
-            <em className="font-[inherit] italic text-[#40813e]">Responsibly</em>
-            <br />
-            Delivered.
+            <span className="font-light italic text-brand-green">Responsibly</span> Delivered.
           </h1>
-          <p className="mb-[35px] max-w-[570px] text-[20px] leading-[1.45] tracking-[0.015em] text-[#46566d]">
+          <p className="mx-auto mb-10 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg lg:mx-0 lg:text-xl">
             Wholesale packaging and paper solutions dispatched daily across South Florida.
           </p>
-
-          <div className="flex flex-wrap gap-4">
-            <a className="inline-flex min-w-[210px] items-center justify-center rounded-[13px] bg-[#40813e] px-[26px] py-[18px] text-[17px] font-bold text-white shadow-[0_12px_20px_rgba(39,83,37,0.18)] transition duration-200 hover:-translate-y-0.5" href="#contact">
+          <div className="flex flex-col justify-center gap-4 px-6 sm:flex-row sm:px-0 lg:justify-start">
+            <a
+              href="#contact"
+              className="rounded-card bg-brand-green px-10 py-4 text-lg font-bold text-white shadow-cta transition-all hover:bg-brand-green-dark active:scale-95"
+            >
               Check Inventory
             </a>
-            <a className="inline-flex min-w-[210px] items-center justify-center rounded-[13px] border-2 border-[#e1e6ec] bg-white px-[26px] py-[18px] text-[17px] font-bold text-[#3e7b3c] transition duration-200 hover:-translate-y-0.5" href="tel:7547011797">
+            <a
+              href="tel:7547011797"
+              className="rounded-card border-2 border-brand-green px-10 py-4 text-lg font-bold text-brand-green transition-all hover:bg-brand-mist active:scale-95"
+            >
               Call Warehouse
             </a>
           </div>
         </div>
 
-        <div className="relative h-[445px] overflow-hidden rounded-[45px] border-[6px] border-white shadow-[0_24px_35px_rgba(20,31,37,0.2)] animate-[enter_0.7s_0.15s_ease_both]">
-          <img className="h-full w-full object-cover" src="https://woodyspaper.com/image_ba5a41.jpg" alt="Woody's Paper distribution center warehouse" />
-          <div className="absolute bottom-[23px] left-[24px] flex flex-col rounded-[10px] bg-white/90 px-[18px] py-[12px] text-[#172235] shadow-[0_4px_10px_rgba(0,0,0,0.12)]">
-            <b className="text-[13px]">Warehouse Direct</b>
-            <span className="mt-[3px] text-[10px] text-slate-500">Optimized Fulfillment</span>
+        <div className="tilt-stage mt-8 lg:mt-0">
+          <div ref={tiltRef} className="tilt-target relative mx-auto max-w-lg lg:max-w-none">
+            <img
+              src="https://woodyspaper.com/image_ba5a41.jpg"
+              alt="Woody's Paper distribution centre in South Florida"
+              loading="eager"
+              onError={(event) => {
+                event.currentTarget.src = FALLBACK_IMAGE
+              }}
+              className="aspect-4/3 w-full rounded-slab border-6 border-white object-cover shadow-2xl sm:rounded-slab-lg"
+            />
+            <div className="absolute -bottom-4 -right-4 hidden rounded-slab border border-slate-50 bg-white p-4 shadow-2xl xs:block sm:-bottom-8 sm:-right-8 sm:p-7">
+              <p className="text-3xs font-black uppercase tracking-tighter text-brand-green sm:text-xs">
+                Warehouse Direct
+              </p>
+              <p className="mt-1 text-lg font-bold leading-none text-slate-900 sm:text-2xl">
+                Optimized Fulfillment
+              </p>
+            </div>
           </div>
         </div>
       </div>

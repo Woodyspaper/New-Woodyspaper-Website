@@ -1,82 +1,148 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
+import { askWoody } from '../services/advisor'
+import type { AdvisorResult } from '../services/advisor'
+import { GlassCard } from './GlassCard'
+import { Reveal } from './Reveal'
+import { WoodyMark } from './WoodyMark'
+
+const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
 
 export function AdvisorSection() {
   const [question, setQuestion] = useState('')
-  const [answer, setAnswer] = useState('')
+  const [result, setResult] = useState<AdvisorResult | null>(null)
+  const [thinking, setThinking] = useState(false)
+  const [error, setError] = useState('')
 
-  const askWoody = (event: FormEvent<HTMLFormElement>) => {
+  const consult = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!question.trim()) return
-    setAnswer('For current stock, case quantities, and a warehouse-direct quote, send this request to our supply team below.')
+    if (!question.trim() || thinking) return
+
+    setThinking(true)
+    setError('')
+    try {
+      setResult(await askWoody(question))
+    } catch {
+      setError('Consultation service is operating in manual mode. Please submit an inquiry below.')
+    } finally {
+      setThinking(false)
+    }
   }
 
   return (
-    <section className="advisor relative overflow-hidden bg-[#142f17] py-[76px] text-white" id="ai-advisor">
-      <div className="mx-auto grid max-w-[1280px] gap-[100px] px-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-        <div>
-          <div className="flex items-center gap-4">
-            <div className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white/10" aria-hidden="true">
-              <svg className="h-14 w-14" viewBox="0 0 100 100">
-                <path d="M12 55 L38 62 L18 85 L28 65 L35 85 L42 66 L12 55 Z" fill="#fff" stroke="#e5e7eb" />
-                <path d="M12 55 C25 45 45 45 52 48 L72 54 C68 62 55 75 42 72 L12 55 Z" fill="#437a3d" />
-                <path d="M45 46 L92 18 L75 42 L88 52 L70 54 Z" fill="#437a3d" />
-                <path d="M45 46 L82 88 L65 72 L55 86 L68 54 Z" fill="#2d5229" />
-                <path d="M62 50 C65 40 80 40 85 50 L75 58 L65 54 Z" fill="#fff" />
-                <path d="M85 50 L96 54 L88 58 Z" fill="#facc15" />
-                <circle cx="75" cy="51" r="1.3" fill="#1a2e19" />
-              </svg>
+    <Reveal as="section" id="ai-advisor" className="scroll-mt-chrome px-4 py-12 sm:py-20 lg:scroll-mt-chrome-lg">
+      <GlassCard className="mx-auto max-w-6xl rounded-panel border-brand-green/15 p-6 shadow-ai-glow sm:rounded-slab-lg sm:p-16">
+        <div className="grid gap-10 sm:gap-16 lg:grid-cols-5">
+          <div className="lg:col-span-2">
+            <div className="mb-8 flex animate-bob flex-col items-center gap-4 text-center sm:flex-row sm:items-start sm:gap-6 sm:text-left">
+              <div className="flex size-28 shrink-0 items-center justify-center rounded-card bg-brand-green/10 text-brand-green">
+                <WoodyMark animated className="size-25" />
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold leading-tight text-slate-900 sm:text-4xl">
+                  &ldquo;Woody&rdquo; <br className="hidden sm:block" />
+                  <span className="text-brand-green">the Advisor</span>
+                </h2>
+                <p className="mt-2 text-xs font-black uppercase tracking-ultra text-slate-400">
+                  Inventory Expert
+                </p>
+              </div>
             </div>
-            <div>
-              <h2 className="m-0 text-[clamp(2.3rem,5vw,4.2rem)] font-bold leading-[0.95] tracking-[-0.04em] text-white">
-                “Woody”
-                <br />
-                <em className="italic text-[#86bd83]">the Advisor</em>
-              </h2>
-              <span className="text-[11px] font-extrabold uppercase tracking-[0.15em] text-[#a8d3a6]">Inventory Expert</span>
-            </div>
+
+            <p className="mb-4 text-sm leading-relaxed text-slate-600 sm:text-base">
+              Describe your specific needs. Woody will cross-reference wholesale SKUs in our
+              warehouse to suggest the perfect match.
+            </p>
+            <p className="mb-8 border-l-2 border-slate-100 pl-4 text-3xs italic leading-tight text-slate-400">
+              Professional Disclosure: Catalog reference provided for estimation. Confirm live stock
+              availability and final wholesale pricing via inquiry.
+            </p>
+
+            <form onSubmit={consult} className="space-y-4">
+              <textarea
+                id="advisor-question"
+                aria-label="Ask Woody about inventory"
+                rows={3}
+                value={question}
+                onChange={(event) => setQuestion(event.target.value)}
+                placeholder="Consult Woody on technical stock requirements..."
+                className="w-full resize-none rounded-card border border-slate-200 px-5 py-4 text-sm outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-brand-green"
+              />
+              <button
+                type="submit"
+                disabled={thinking || !question.trim()}
+                className={`flex w-full items-center justify-center gap-2 rounded-card bg-slate-900 py-5 font-bold text-white shadow-lg transition-all hover:bg-black disabled:opacity-50 active:scale-98 ${
+                  thinking ? 'animate-thinking' : ''
+                }`}
+              >
+                {thinking ? 'Consulting the catalog…' : 'Talk to Woody'}
+              </button>
+            </form>
           </div>
 
-          <p className="mt-[25px] max-w-[440px] text-[17px] leading-[1.6] text-[#d9e5da]">
-            Describe your specific needs. Woody will cross-reference wholesale SKUs in our warehouse to suggest the perfect match.
-          </p>
-          <small className="mt-[30px] block max-w-[420px] text-[10px] leading-[1.55] text-[#88a38a]">
-            Professional Disclosure: Catalog reference provided for estimation. Confirm live stock availability and final wholesale pricing via inquiry.
-          </small>
+          <div className="lg:col-span-3">
+            {result ? (
+              <div className="flex h-full flex-col gap-6" aria-live="polite">
+                <div className="rounded-panel border border-green-100/50 bg-green-50/50 p-6 sm:p-8">
+                  <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
+                    <h3 className="text-xs font-bold uppercase tracking-ultra text-brand-green">
+                      Inventory Match Index
+                    </h3>
+                    <span className="rounded-full border border-slate-100 bg-white/80 px-3 py-1.5 text-3xs font-black uppercase tracking-tighter text-slate-400">
+                      Estimated Market Quote
+                    </span>
+                  </div>
 
-          <form className="mt-[24px]" onSubmit={askWoody}>
-            <textarea
-              id="question"
-              aria-label="Ask Woody about inventory"
-              value={question}
-              onChange={(event) => setQuestion(event.target.value)}
-              placeholder="Consult Woody on technical stock requirements..."
-              className="min-h-[92px] w-full rounded-[10px] border border-slate-200 bg-[#fafbfa] p-4 text-[#172235] outline-none transition focus:border-[#74a873] focus:shadow-[0_0_0_3px_rgba(64,129,62,0.1)]"
-            />
-            <button
-              className="mt-[14px] inline-flex min-w-[170px] items-center justify-center rounded-[13px] bg-[#40813e] px-5 py-[13px] text-[14px] font-bold text-white transition hover:-translate-y-0.5"
-              type="submit"
-            >
-              Talk to Woody
-            </button>
-          </form>
-        </div>
+                  <p className="mb-6 text-sm italic leading-relaxed text-slate-800 sm:text-base">
+                    {result.summary}
+                  </p>
 
-        <div className="relative z-10">
-          <div
-            className={answer ? 'border-l-4 border-[#40813e] bg-[rgba(240,253,244,0.55)] p-8 text-left text-[#536175] shadow-[0_12px_20px_rgba(0,0,0,0.12)]' : 'rounded-[12px] bg-[#f1f6f1] p-[18px] text-[13px] text-[#66748a]'}
-          >
-            {answer ? (
-              <>
-                <b className="text-[#3f803d]">Woody's Logistics Insight</b>
-                <p className="mt-[6px] leading-[1.5]">{answer}</p>
-              </>
+                  {result.matches.length > 0 ? (
+                    <ul className="scrollbar-brand grid max-h-100 gap-4 overflow-y-auto pr-3">
+                      {result.matches.map((match) => (
+                        <li
+                          key={match.id}
+                          className="flex items-center justify-between gap-6 rounded-card border border-green-100 bg-white p-4 text-2xs shadow-sm transition-all hover:border-brand-green sm:text-xs"
+                        >
+                          <div>
+                            <span className="mb-0.5 block font-black uppercase text-brand-green/40">
+                              {match.id}
+                            </span>
+                            <span className="font-bold text-slate-800">{match.description}</span>
+                          </div>
+                          <div className="shrink-0 text-right">
+                            <span className="block font-bold text-brand-green">
+                              {currency.format(match.price)}
+                            </span>
+                            <span className="text-4xs font-bold uppercase text-slate-400">
+                              {match.unit}
+                            </span>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="p-6 text-center text-xs italic text-slate-400">
+                      No direct SKU match found. Please submit a professional inquiry for custom sourcing.
+                    </p>
+                  )}
+                </div>
+
+                <div className="rounded-panel border border-blue-100/50 bg-blue-50/50 p-6 sm:p-8">
+                  <h3 className="mb-3 text-xs font-bold uppercase tracking-ultra text-blue-600">
+                    Woody&rsquo;s Logistics Insight
+                  </h3>
+                  <p className="text-sm leading-relaxed text-slate-800 sm:text-base">{result.logistics}</p>
+                </div>
+              </div>
             ) : (
-              <p>Woody's matches will appear here.</p>
+              <div className="flex h-full min-h-75 flex-col items-center justify-center rounded-panel border-2 border-dashed border-slate-200 p-8 text-center text-sm italic text-slate-400">
+                {error || "Woody's matches will appear here."}
+              </div>
             )}
           </div>
         </div>
-      </div>
-    </section>
+      </GlassCard>
+    </Reveal>
   )
 }
